@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('multimedia_link');
             $table->timestamps();
 
-            $table->foreign('project_id')->references('project_id')->on('projects')->onDelete('cascade');
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
         });
     }
 
