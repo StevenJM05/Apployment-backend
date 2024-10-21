@@ -52,7 +52,19 @@ class ContactController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        
+        $contact = Contact::find($id);
+        if ($contact) {
+            $validatedData = $request->validate([
+                'email' => 'sometimes|string',
+                'phone'=> 'sometimes|string',
+                'address' => 'sometimes|string',
+                'city' => 'sometimes|string',
+                'profile_id' => 'sometimes|exists:profile_id'
+                ]);
+            $contact->update($validatedData);
+            return response()->json($contact, 200);
+        }
+        return response()->json(['message' => 'Contact not found'], 404);
     }
 
     /**
@@ -60,6 +72,11 @@ class ContactController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $contact = Contact::find($id);
+        if ($contact) {
+            $contact->delete();
+            return response()->json(['message' => 'Contact deleted successfully'], 200);
+        }
+        return response()->json(['message' => 'Contact not found'], 404);
     }
 }

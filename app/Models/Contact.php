@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Contact extends Model
 {
     //
+    protected $table = "contact";
+
     protected $fillable = [
         'email',
         'phone',
