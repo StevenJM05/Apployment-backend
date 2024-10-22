@@ -10,7 +10,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 //Ruta para toda la informacion de perfil
-Route::get('worker-profiles', [WorkerProfileController::class, 'index']);
+Route::get('/worker-profiles', [WorkerProfileController::class, 'index']);
 //Rutas para contacto
 Route::get('/contacts', [ContactController::class, 'index']);
 Route::post('/contacts', [ContactController::class, 'store']);
