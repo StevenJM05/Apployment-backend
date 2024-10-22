@@ -14,7 +14,7 @@ class MultimediaProjectController extends Controller
      */
     public function index()
     {
-        return response()->json(MultimediaProject::all());
+        return response()->json(MultimediaProject::all(), 200);
     }
 
     /**
