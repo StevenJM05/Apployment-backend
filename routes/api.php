@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\ContactController;
 use App\Http\Controllers\API\WorkerProfileController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,11 @@ Route::get('/contacts/{id}', [ContactController::class, 'show']);
 Route::put('/contacts/{id}', [ContactController::class, 'update']);
 Route::delete('/contacts/{id}', [ContactController::class, 'destroy']);
 
+//Rutas de autenticacion
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::put('/change-role/{id}', [AuthController::class, 'changeRole'])->middleware('auth:sanctum');
 
 
 
