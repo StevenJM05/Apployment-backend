@@ -11,14 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contact', function (Blueprint $table) {
+        Schema::create('contacts', function (Blueprint $table) {
             $table->id();
-            $table->string('email');
-            $table->string('phone');
-            $table->string('address');
-            $table->string('city');
+            $table->string('email', 191); // Limitar a 191 caracteres
+            $table->string('phone', 191); // Limitar a 191 caracteres
+            $table->string('address', 191); // Limitar a 191 caracteres
+            $table->string('city', 191); // Limitar a 191 caracteres
             $table->unsignedBigInteger('profile_id');
             $table->timestamps();
+
+            // Agregar índice para la clave foránea
+            $table->index('profile_id');
 
             $table->foreign('profile_id')->references('id')->on('profile')->onDelete('cascade');
         });
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contact');
+        Schema::dropIfExists('contacts');
     }
 };

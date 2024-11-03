@@ -12,9 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('profile', function (Blueprint $table) {
-            
             $table->string('qualifications')->nullable()->change();
             $table->boolean('status')->default(true);
+            // Si deseas agregar un índice para la columna status, puedes hacerlo así:
+            // $table->index('status');
         });
     }
 

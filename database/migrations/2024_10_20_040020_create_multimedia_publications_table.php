@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('multimedia_publications', function (Blueprint $table) {
             $table->id();
-            $table->string('multimedia_link');
-            $table->string('description');
+            $table->string('multimedia_link', 191); // Limitar a 191 caracteres
+            $table->text('description')->nullable(); // Usar text para descripciones más largas y permitir nulo
             $table->unsignedBigInteger('publication_id');
             $table->timestamps();
+
+            // Agregar índice para la clave foránea
+            $table->index('publication_id');
 
             $table->foreign('publication_id')->references('id')->on('publications')->onDelete('cascade');
         });

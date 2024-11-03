@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::create('work_experience', function (Blueprint $table) {
             $table->id();
-            $table->string('company');
-            $table->string('job_title');
-            $table->string('duration');
-            $table->string('description');
+            $table->string('company', 191); // Limitar a 191 caracteres
+            $table->string('job_title', 191); // Limitar a 191 caracteres
+            $table->string('duration', 191); // Limitar a 191 caracteres
+            $table->string('description', 191); // Limitar a 191 caracteres
             $table->unsignedBigInteger('profile_id');
             $table->timestamps();
+
+            // Agregar índice para la clave foránea
+            $table->index('profile_id');
 
             $table->foreign('profile_id')->references('id')->on('profile')->onDelete('cascade');
         });

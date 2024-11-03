@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('profile', function (Blueprint $table) {
             $table->id();
-            $table->string('names');
-            $table->string('last_name');
+            $table->string('names', 191); // Limitar a 191 caracteres
+            $table->string('last_name', 191); // Limitar a 191 caracteres
             $table->date('birthdate');
-            $table->string('gender');
-            $table->string('photo');
+            $table->string('gender', 10); // Limitar a 10 caracteres (ajustar según sea necesario)
+            $table->string('photo', 191); // Limitar a 191 caracteres
             $table->float('qualifications');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();

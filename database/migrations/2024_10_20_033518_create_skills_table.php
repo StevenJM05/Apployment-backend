@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('skills', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description');
+            $table->string('name', 191); // Limitar a 191 caracteres
+            $table->text('description')->nullable(); // Usar text para descripciones más largas y permitir nulo
             $table->unsignedBigInteger('profile_id');
             $table->timestamps();
+
+            // Agregar índice para la clave foránea
+            $table->index('profile_id');
 
             $table->foreign('profile_id')->references('id')->on('profile')->onDelete('cascade');
         });

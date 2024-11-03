@@ -11,11 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('profile_profession', function (Blueprint $table) {
+        Schema::create('profile_professions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('profession_id');
             $table->unsignedBigInteger('profile_id');
             $table->timestamps();
+
+            // Agregar índices para las columnas de claves foráneas
+            $table->index('profession_id');
+            $table->index('profile_id');
 
             $table->foreign('profession_id')->references('id')->on('professions')->onDelete('cascade');
             $table->foreign('profile_id')->references('id')->on('profile')->onDelete('cascade');
@@ -27,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('profile_profession');
+        Schema::dropIfExists('profile_professions');
     }
 };

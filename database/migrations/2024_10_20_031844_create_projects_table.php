@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use League\CommonMark\Reference\Reference;
 
 return new class extends Migration
 {
@@ -14,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description');
+            $table->string('name', 191); // Limitar a 191 caracteres
+            $table->string('description', 191); // Limitar a 191 caracteres
             $table->unsignedBigInteger('profile_id');
             $table->timestamps();
+
+            // Agregar índice para la clave foránea
+            $table->index('profile_id');
 
             $table->foreign('profile_id')->references('id')->on('profile')->onDelete('cascade');
         });

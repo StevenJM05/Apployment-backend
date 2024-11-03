@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('professions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description');
+            $table->string('name', 191); // Limitar a 191 caracteres
+            $table->string('description', 191); // Limitar a 191 caracteres
             $table->timestamps();
         });
     }
