@@ -13,7 +13,13 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return response()->json(Profile::all(), 200);
+        $profiles = Profile::all()->map(function ($profile) {
+            if ($profile->photo) {
+                $profile->photo = asset('storage/' . $profile->photo);
+            }
+            return $profile;
+        });
+        return response()->json($profiles, 200);
     }
 
     /**
@@ -27,9 +33,13 @@ class ProfileController extends Controller
             'last_name' => 'required|string',
             'birthdate' => 'required|date',
             'gender' => 'required|string',
-            'photo' => 'string|nullable', 
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
             'user_id' => 'required|exists:users,id', 
         ]);
+        if($request->hasFile('photo')){
+            $photoPath = $request->file('photo')->store('profiles', 'public');
+            $validatedData['photo'] = $photoPath;
+        }
         $validatedData['qualifications'] = null; 
         $validatedData['status'] = false;
         $profile = Profile::create($validatedData);
